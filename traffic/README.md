@@ -35,7 +35,7 @@ model.compile(
 ```
 ### Convolution and Max Pooling layer
 Later on, I played around with the **Convolution and Max Pooling layer** 
-1. Add another convolution and max pooling layer. 
+- Add another convolution and max pooling layer. 
 Surprisingly, this change dramatically improve the accuracy form `0.0558` to `0.9646`.
 ![image](https://user-images.githubusercontent.com/65888725/128693936-b2b2b9a7-f07f-402d-9ec9-98ef7df77af0.png)
 ```
