@@ -3,7 +3,7 @@
 Write an AI to identify which traffic sign appears in a photograph.
 
 ## Experiment
-The baseline model is the model from the lecture : 
+The baseline model is the model from the [lecture](https://cs50.harvard.edu/ai/2020/notes/5/#convolutional-neural-networks) : 
 ```
 model = tf.keras.models.Sequential([
 
@@ -33,6 +33,20 @@ model.compile(
     metrics=["accuracy"]
 )
 ```
+### Convolution and Max Pooling layer
+Later on, I played around with the **Convolution and Max Pooling layer** 
+1. Add another convolution and max pooling layer. 
+Surprisingly, this change dramatically improve the accuracy form `0.0558` to `0.9646`.
+![image](https://user-images.githubusercontent.com/65888725/128693936-b2b2b9a7-f07f-402d-9ec9-98ef7df77af0.png)
+```
+tf.keras.layers.Conv2D(
+    32, (3, 3), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+),
+
+# Max-pooling layer, using 2x2 pool size
+tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+```
+
 
 
 
@@ -41,7 +55,7 @@ model.compile(
 | #  | Version                                                                                      | Accuracy             |
 | :--| :------------------------------------------------------------------------------------------- | :------------------- |
 | 1  | Baseline                                                                                     | `0.0558`             |
-| 2  | Add second convolutional layer, identical to the first                                       | `0.9708`             |
+| 2  | Add another ConV and Max pooling layer                                                       | `0.0.9646`           |
 | 3  | Add second maxpooling layer (after the second convolutional layer), identical to the first   | `0.9503`             |
 | 4  | Remove second maxpooling layer, increase kernal size in second convolutional layer to (4, 4) | `0.9480`             |
 | 5  | Double number of filters (to 64) in second convolutional layer                               | `0.9684`             |
