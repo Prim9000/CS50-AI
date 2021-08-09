@@ -48,25 +48,27 @@ tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
 ```
 
 
-
-
 ## Experiment Results
 
-| #  | Version                                                                                      | Accuracy             |
-| :--| :------------------------------------------------------------------------------------------- | :------------------- |
-| 1  | Baseline                                                                                     | `0.0558`             |
-| 2  | Add another ConV and Max pooling layer                                                       | `0.0.9646`           |
-| 3  | Add second maxpooling layer (after the second convolutional layer), identical to the first   | `0.9503`             |
-| 4  | Remove second maxpooling layer, increase kernal size in second convolutional layer to (4, 4) | `0.9480`             |
-| 5  | Double number of filters (to 64) in second convolutional layer                               | `0.9684`             |
-| 6  | Double number of nodes in hidden layer to 256                                                | `0.9528`             |
-| 7  | Add second hidden layer (both layers with 128 nodes)                                         | `0.9511`             |
-| 8  | Remove dropout                                                                               | `0.9486`             |
-| 9  | Increase dropout rate to 0.7                                                                 | `0.9022`             |
-| 10 | Decrease dropout rate to 0.2                                                                 | `0.9491`             |
+| #  | Version                                                                                              | Accuracy             |
+| :--| :----------------------------------------------------------------------------------------------------| :------------------- |
+| 1  | Baseline                                                                                             | `0.0558`             |
+| 2  | Add another Conv2D and MaxPooling2D  layer, identical to the first pair                                | `0.9646`             |
+| 3  | Change the first Conv2D layer's filters to 16                                                        | `0.8631`             |
+| 4  | Change the first Conv2D layer's filters to 64                                                        | `0.9514`             |
+| 5  | Triple the initial Conv2D and MaxPooling2D                                                           | `0.9454`             |
+| 6  | Change the 1st Conv2D filters to 16 / 2st Conv2D filters to 32 / 3rd Conv2D filters to 64            | `0.9535`             |
+| 7  | Add BatchNormalization between the Conv2D and Conv2D and MaxPooling2D layer from 6th version         | `0.9823`             |
+| 8  | Add BatchNormalization between the Conv2D and Conv2D and MaxPooling2D layer from 2nd version         | `0.9891`             |
+| 9  | Add Dense NUM_CATEGORIES * 16 and dropout rate to 0.2 and dense NUM_CATEGORIES * 32 from 8th version | `0.9833`             |
+| 10 | Change the 1st Conv2D filters to 64 from 9th version                                                 | `0.9804`             |
 
 
-## Discussion
+## Conclusion
 
-The base model performed very poorly, with only `0.0544` testing accuracy. Adding a second convolutional layer dramatically improved accuracy to `0.9708`. None of the other tested models were able to top this accuracy score. However, adding a second max-pooling layer,  doubling the number of filters in the second convolutional layer, and doubling the number of nodes in the hidden layer all yielded promising results, with accurcy scores above `0.95`.
+In the experiment, I have tried 3 main distinct changes :
+1. Conv2D and MaxPooling2D layer
+2. BatchNormalization
+3. Dense Layers
 
+The model with 2 Conv2D, BatchNormalization, MaxPooling2D layers outperform all other model with the accuracy of `0.9891`. By adding another Conv2D and another MaxPooling2D layer distinctly improve the model's accuracy above `0.96`. The BatchNormalization layer has a very promising results that always rise the accuracy up to `0.98`. The Dense layer doesn't improve the accuracy score.
